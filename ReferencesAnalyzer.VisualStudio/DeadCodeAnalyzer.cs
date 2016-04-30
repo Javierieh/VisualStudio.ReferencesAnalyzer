@@ -1,20 +1,20 @@
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.FindSymbols;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.FindSymbols;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ReferencesAnalyzer
+namespace ReferencesAnalyzer.VisualStudio
 {
-    public class ReferencesAnalyzerAnalyzer : DiagnosticAnalyzer
+    [DiagnosticAnalyzer(LanguageNames.CSharp)]
+    public class DeadCodeAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = "ReferencesAnalyzer";
-        private static readonly Solution CurrentSolution;
+        private readonly Solution CurrentSolution;
         // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
         // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Localizing%20Analyzers.md for more on localization
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.AnalyzerTitle), Resources.ResourceManager, typeof(Resources));
@@ -34,7 +34,7 @@ namespace ReferencesAnalyzer
             context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
         }
 
-        private async static void AnalyzeSymbol(SymbolAnalysisContext context)
+        private async void AnalyzeSymbol(SymbolAnalysisContext context)
         {
             // TODO: Replace the following code with your own analysis, generating Diagnostic objects for any issues you find
             var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
@@ -48,5 +48,7 @@ namespace ReferencesAnalyzer
                 context.ReportDiagnostic(diagnostic);
             }
         }
+
+
     }
 }
