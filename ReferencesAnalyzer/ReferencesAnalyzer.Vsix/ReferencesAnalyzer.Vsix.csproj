@@ -52,9 +52,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ReferencesAnalyzer\ReferencesAnalyzer.csproj">
-      <Project>{1E3D0002-AE13-4D8E-A6C3-FAEE0637CFDF}</Project>
-      <Name>ReferencesAnalyzer</Name>
+    <ProjectReference Include="..\..\ReferencesAnalyzer.VisualStudio\ReferencesAnalyzer.VisualStudio.csproj">
+      <Project>{fdb93637-6207-4608-b6ac-17c9679915c2}</Project>
+      <Name>ReferencesAnalyzer.VisualStudio</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
